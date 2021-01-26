@@ -1,0 +1,9 @@
+
+
+
+enum transactionType  {
+  deposit,
+  withdrawal,
+
+
+}
