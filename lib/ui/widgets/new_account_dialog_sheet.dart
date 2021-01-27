@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:takudzwa_interview_project_app/core/providers/account_name_prvider.dart';
 import 'package:takudzwa_interview_project_app/locator.dart';
 import 'package:takudzwa_interview_project_app/ui/constants/colors.dart';
-import 'package:takudzwa_interview_project_app/ui/widgets/deposit_withdrawal_btn.dart';
 import 'package:takudzwa_interview_project_app/ui/widgets/new_account_btn.dart';
 
 class NewAccountDialogSheet {
@@ -60,6 +58,7 @@ class NewAccountDialogSheet {
                           EdgeInsets.symmetric(horizontal: screenWidth10p * 7),
                       child: TextField(
                         keyboardType: TextInputType.name,
+                        textAlign: TextAlign.center,
                         onChanged: (String value) {
                           locator<AccountNameProvider>().addAccountName(value);
 

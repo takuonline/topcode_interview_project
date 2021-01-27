@@ -5,7 +5,7 @@ import 'package:takudzwa_interview_project_app/ui/views/account_details.dart';
 
 
 class AccountCard extends StatelessWidget {
-  AccountItem accountItem;
+  final AccountItem accountItem;
 
   AccountCard({this.accountItem});
 

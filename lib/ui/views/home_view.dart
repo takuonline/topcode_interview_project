@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:takudzwa_interview_project_app/core/providers/account_name_prvider.dart';
 import 'package:takudzwa_interview_project_app/core/providers/account_provider.dart';
-import 'package:takudzwa_interview_project_app/core/models/account_item.dart';import 'package:takudzwa_interview_project_app/core/services/api.dart';
+import 'package:takudzwa_interview_project_app/core/models/account_item.dart';
+import 'package:takudzwa_interview_project_app/core/services/api.dart';
 import 'package:takudzwa_interview_project_app/locator.dart';
 import 'package:takudzwa_interview_project_app/ui/constants/colors.dart';
 import 'package:takudzwa_interview_project_app/ui/widgets/account_card.dart';
@@ -18,7 +19,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<AccountItem> accountsList = [];
 
-
   @override
   void initState() {
     super.initState();
@@ -26,28 +26,20 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _getApiData() async {
-    Api _api = Api();
-  await  _api.getAccountList();
-    setState(() { });
+    await locator<Api>().getAccountList();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight10p =
-        screenHeight * (10 / MediaQuery.of(context).size.height);
-    final screenWidth10p =
-        screenWidth * (10 / MediaQuery.of(context).size.width);
-    AccountListProvider _accountListProvider = locator<AccountListProvider>();
-    accountsList = _accountListProvider.accounts;
 
-
-
+    accountsList = locator<AccountListProvider>().accounts;
 
     return Scaffold(
       body: ChangeNotifierProvider(
-        create: (_)=> AccountNameProvider(),
+        create: (_) => AccountNameProvider(),
         child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -57,7 +49,8 @@ class _HomeViewState extends State<HomeView> {
             child: ListView(shrinkWrap: true, children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * .05, vertical: screenHeight * .05),
+                    horizontal: screenWidth * .05,
+                    vertical: screenHeight * .05),
                 child: Text(
                   "Home",
                   style: TextStyle(
@@ -69,19 +62,21 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: screenHeight * .02,
               ),
+              if (accountsList.isEmpty)
+                Center(child: CircularProgressIndicator()),
               ...accountsList
                   .map(
-
                     (e) => AccountCard(
                       accountItem: e,
                     ),
                   )
                   .toList()
-            ])),
+            ]),),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kLightSecondaryColor,
-        onPressed: ()=> locator<NewAccountDialogSheet>().displayDialog(context),
+        onPressed: () =>
+            locator<NewAccountDialogSheet>().displayDialog(context),
         child: Icon(
           Icons.add,
           size: screenWidth * .08,

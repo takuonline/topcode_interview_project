@@ -15,8 +15,6 @@ class Api {
   void parseApiList(parsedDataList) {
     AccountListProvider _accountListProvider = locator<AccountListProvider>();
     for (Map account in parsedDataList) {
-
-
       AccountItem _accountItem = AccountItem(
         id: account["id"],
         overdraft: account["overdraft"].toString(),
@@ -51,7 +49,6 @@ class Api {
 
   Future<AccountItem> getSingleAccount(accountId) async {
     try {
-
       http.Response response = await http.get("${url}/$accountId");
 
       String data = response.body;
@@ -73,7 +70,6 @@ class Api {
     } on SocketException catch (_) {
       print("may not be connected to the internet ");
     } catch (e) {
-      print("there was an error with you request");
       print(e);
     }
   }
@@ -82,16 +78,8 @@ class Api {
     AccountListProvider _accountListProvider = locator<AccountListProvider>();
 
     try {
-       http.Response response =
-          await http.post("${url}/deposit/$accountId?amount=$amount");
-
-      String data = response.body;
-      print("code is ${response.statusCode}");
-
-      if (response.statusCode == 200) {
-        print(response.body);
-        print("deposit has successfully been made ");
-      }
+      http.Response response =
+          await http.post("$url/deposit/$accountId?amount=$amount");
 
       AccountItem accountItem = await getSingleAccount(accountId);
       _accountListProvider.modifyAccount(accountItem);
@@ -108,14 +96,10 @@ class Api {
     AccountListProvider _accountListProvider = locator<AccountListProvider>();
 
     try {
-       http.Response response =
+      http.Response response =
           await http.post("$url/withdraw/$accountId?amount=$amount");
 
-      String data = response.body;
-      print("code is ${response.statusCode}");
-
       if (response.statusCode == 200) {
-
         AccountItem accountItem = await getSingleAccount(accountId);
         _accountListProvider.modifyAccount(accountItem);
 
@@ -137,20 +121,16 @@ class Api {
       "accountNumber": "3425635",
       "balance": 0,
       "overdraft": 0,
-      "active": true,
-      "created": DateTime.now().toString(),
-      "modified": DateTime.now().toString(),
     });
 
     try {
-      http.Response response = await http.put("$url/create", body: body);
+      http.Response response =
+          await http.put("$url/create?userId=$userId", body: body);
 
       String data = response.body;
-      print("code is ${response.statusCode}");
+      print("status code is ${response.statusCode}");
 
-      if (response.statusCode == 200) {
-         print("create a new account successfully");
-      }
+
     } on SocketException catch (_) {
       print("may not be connected to the internet ");
     } catch (e) {

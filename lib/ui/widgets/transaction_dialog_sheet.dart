@@ -8,10 +8,6 @@ import 'package:takudzwa_interview_project_app/ui/constants/colors.dart';
 import 'package:takudzwa_interview_project_app/ui/widgets/deposit_withdrawal_btn.dart';
 
 class TransactionDialogSheet {
-
-
-
-
   Future<void> displayDialog(
       BuildContext context, AccountItem accountItem, onPressed, type) async {
     return showDialog<void>(
@@ -24,10 +20,8 @@ class TransactionDialogSheet {
 
   draggableSheet(BuildContext context, AccountItem accountItem,
       Function onPressed, transactionType type) {
-
     String btnTitle;
     String dialogTitle;
-
 
     switch (type) {
       case transactionType.deposit:
@@ -43,7 +37,6 @@ class TransactionDialogSheet {
       default:
         print(type);
     }
-
 
     return Material(
       color: Colors.transparent,
@@ -69,7 +62,8 @@ class TransactionDialogSheet {
                             ),
                             Text(
                               dialogTitle,
-                              style: TextStyle(fontSize: 30,color: kPrimaryTextColor),
+                              style: TextStyle(
+                                  fontSize: 30, color: kPrimaryTextColor),
                             ),
                             SizedBox(
                               height: 30,
@@ -77,13 +71,12 @@ class TransactionDialogSheet {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 70),
                               child: TextField(
+                                textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
                                 onChanged: (String value) {
                                   try {
-                                 double amount = double.parse(value) ;
-                                  locator<AmountProvider>().addAmount(amount) ;
-
-
+                                    double amount = double.parse(value);
+                                    locator<AmountProvider>().addAmount(amount);
                                   } on FormatException {
                                     print("wrong text");
                                   } catch (e) {
@@ -96,16 +89,14 @@ class TransactionDialogSheet {
                               height: 40,
                             ),
                             DepositWithdrawalBtn(
-                                type:type,
-                                title: btnTitle,
-                                accountItem: accountItem,
-                             ),
-
+                              type: type,
+                              title: btnTitle,
+                              accountItem: accountItem,
+//                              onPressed: ,
+                            ),
                             SizedBox(
                               height: 80,
                             )
-
-
                           ]),
                         ),
                       ),
@@ -115,6 +106,4 @@ class TransactionDialogSheet {
               )),
     );
   }
-
-
 }

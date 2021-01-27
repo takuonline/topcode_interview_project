@@ -11,5 +11,4 @@ class AccountNameProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
 }

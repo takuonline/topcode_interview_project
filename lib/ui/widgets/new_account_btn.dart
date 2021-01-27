@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takudzwa_interview_project_app/core/services/api.dart';
 import 'package:takudzwa_interview_project_app/core/services/transaction_services.dart';
-import 'package:takudzwa_interview_project_app/locator.dart';
 import 'package:takudzwa_interview_project_app/ui/constants/colors.dart';
 
 class NewAccountBtn extends StatelessWidget {
